@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 const Navbar = () => {
   const router = useRouter();
   return (
-    <nav className=" pt-4 lg:pt-8 px-[5%] pb-4 flex items-center justify-between  shadow-lg">
+    <nav className="bg-primary pt-4 lg:pt-8 px-[5%] pb-4 flex items-center justify-between  shadow-md">
       <div>
         <Link className="flex gap-2 items-center" href="/">
           <Image
@@ -21,9 +21,9 @@ const Navbar = () => {
       <div>
         <button
           onClick={() => router.push("/login")}
-          className="bg-[#E3823C] text-white rounded-md flex justify-center items-center p-2"
+          className="bg-[#E3823C] text-white rounded-md flex justify-center items-center p-1 w-[90px]"
         >
-          Get Started
+          Sign Up
         </button>
       </div>
     </nav>

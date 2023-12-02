@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 const Navbar = () => {
   const router = useRouter();
   return (
-    <nav className=" pt-4 lg:pt-8 px-[5%] pb-4 flex items-center justify-between border-b-[1px] border-[#E3823C]">
+    <nav className=" pt-4 lg:pt-8 px-[5%] pb-4 flex items-center justify-between  shadow-lg">
       <div>
         <Link className="flex gap-2 items-center" href="/">
           <Image

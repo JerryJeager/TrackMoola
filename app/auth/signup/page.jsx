@@ -1,6 +1,7 @@
 import Image from "next/image"
 import authIllustration from "./authIllustration.png"
-import SignupForm from "./signupForm"
+import SignupForm from "./SignupForm"
+
 const Signup = () => {
   return (
     <section className="w-[90%] mx-auto mt-8 flex flex-col lg:flex-row items-center text-white">

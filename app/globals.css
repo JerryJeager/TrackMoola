@@ -2,3 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.logo-h {
+    text-shadow: 0px 0px 50px rgba(227, 181, 60, 0.50);
+    background: linear-gradient(91deg, #E3B53C -28.49%, #E3823C 99.63%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+form {
+    /* From https://css.glass */
+    background: rgba(35, 32, 63, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    /* backdrop-filter: blur(1px); */
+    -webkit-backdrop-filter: blur(1px);
+    border: 1px solid rgba(35, 32, 63, 0.26);
+}
+
+input{
+    @apply border-[1px] border-white rounded-md bg-transparent;
+}

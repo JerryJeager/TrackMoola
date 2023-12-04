@@ -3,13 +3,17 @@
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 const SignupForm = () => {
+  const router = useRouter()
   const [isPasswordShown, setIsPassWordShown] = useState(false);
   const handlePasswordShown = () => {
     setIsPassWordShown((prev) => !prev);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    router.push('/dashboard')
+
   };
   return (
     <form

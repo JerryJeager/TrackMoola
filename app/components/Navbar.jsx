@@ -32,6 +32,14 @@ const Navbar = () => {
           </button>
         </Link>
         }
+        {
+          pathname == '/' && 
+          <Link href='/auth/signup'>
+            <button className="bg-[#E3823C] text-white rounded-md flex justify-center items-center p-1 w-[90px]">
+              Sign Up
+            </button>
+          </Link>
+        }
       </div>
     </nav>
   );

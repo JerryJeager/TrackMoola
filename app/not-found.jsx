@@ -17,7 +17,7 @@ const NotFound = () => {
         />
         <div className="bg-homeRadialBg4 lg:w-[60%]">
           <h2 className="text-white lg:text-3xl font-bold mt-4">
-            Oops! We can&#39;t find the page you're looking for
+            Oops! We can&#39;t find the page you&#39;re looking for
           </h2>
 
           <Link href="/">

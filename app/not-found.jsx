@@ -1,5 +1,5 @@
 import Image from "next/image";
-import notFound from "./not-found.png";
+import notFound from "./notFound.png";
 import Navbar from "./components/Navbar";
 import Link from "next/link";
 

@@ -22,6 +22,8 @@ const Navbar = () => {
         </Link>
       </div>
       <div>
+      {
+        pathname.includes('/auth') &&
         <Link href={pathname == '/auth/signup' ? '/auth/login' : '/auth/signup'}>
           <button className="bg-[#E3823C] text-white rounded-md flex justify-center items-center p-1 w-[90px]">
             {pathname == '/auth/signup' && <span>Login</span>}
@@ -29,6 +31,7 @@ const Navbar = () => {
             {pathname == '/' && <span>Sign Up</span>}
           </button>
         </Link>
+        }
       </div>
     </nav>
   );

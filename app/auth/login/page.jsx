@@ -10,7 +10,7 @@ const Login = () => {
             <LoginForm />
         </div>
     
-        <div >
+        <div>
             <Image
             width="100%"
             placeholder="blur"

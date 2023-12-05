@@ -1,7 +1,8 @@
 import Image from "next/image";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/home/Navbar";
 import investment from "./investment2.png";
 import Link from "next/link";
+
 
 export default function Home() {
   return (

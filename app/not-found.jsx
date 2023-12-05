@@ -1,6 +1,6 @@
 import Image from "next/image";
 import notFound from "./notFound.png";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/home/Navbar";
 import Link from "next/link";
 
 const NotFound = () => {

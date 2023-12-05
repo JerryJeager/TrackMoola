@@ -53,7 +53,7 @@ const SignupForm = () => {
         type="submit"
         className="w-[180px] rounded-md p-2 flex justify-center items-center bg-primary mt-4"
       >
-        Submit
+        Login
       </button>
     </form>
   );

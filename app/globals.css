@@ -24,3 +24,7 @@ form {
 input{
     @apply border-[1px] border-white rounded-md bg-transparent;
 }
+
+.dashboard-nav-icons{
+    @apply scale-[1.5] lg:scale-[2];
+}

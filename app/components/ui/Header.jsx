@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "./trackMoolalogo2.png";
 import { usePathname } from "next/navigation";
-const Navbar = () => {
+const Header = () => {
   const pathname  = usePathname()
 
   return (
-    <nav className="pt-4 lg:pt-8 px-[5%] pb-4 flex items-center justify-between  shadow-md">
+    <header className="pt-4 lg:pt-8 px-[5%] pb-4 flex items-center justify-between  shadow-md">
       <div>
         <Link className="flex gap-2 items-center" href="/">
           <Image
@@ -41,8 +41,8 @@ const Navbar = () => {
           </Link>
         }
       </div>
-    </nav>
+    </header>
   );
 };
 
-export default Navbar;
+export default Header;

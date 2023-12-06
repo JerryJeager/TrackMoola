@@ -10,12 +10,14 @@ module.exports = {
       colors: {
         primary: "#141326",
         secondary: "#E33C3C",
-        tertiary: "#E3B53C"
+        tertiary: "#E3B53C",
+        lightBlue: "#23203F"
       },
       backgroundColor: {
         orange1: "rgba(232, 64, 64, 0.50)",
         orange2: "0px 0px 50px rgba(227, 181, 60, 0.50)",
         formBg: "rgba(35, 32, 63, 0.5)",
+        whiteP2: "rgba(255, 255, 255, 0.2)",
 
       },
       backgroundImage: {
@@ -27,6 +29,9 @@ module.exports = {
       },
       boxShadow: {
         formShadow: "0 4px 30px rgba(0, 0, 0, 0.1)"
+      },
+      borderColor: {
+        whiteP5: "rgba(255, 255, 255, 0.50)"
       }
     },
   },

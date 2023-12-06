@@ -12,7 +12,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed w-full bottom-0 py-4 lg:py-8 px-[5%] shadow-md border-t-[1px] border-gray-500">
+    <nav className="fixed bg-primary w-full bottom-0 py-4 lg:py-8 px-[5%] shadow-md border-t-[1px] border-gray-500">
       <ul className="flex justify-between w-full">
         <li>
           <Link href="/dashboard" aria-label="Home">

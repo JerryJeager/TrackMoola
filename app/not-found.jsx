@@ -1,12 +1,12 @@
 import Image from "next/image";
 import notFound from "./notFound.png";
-import Navbar from "./components/home/Navbar";
+import Header from "./components/ui/Header";
 import Link from "next/link";
 
 const NotFound = () => {
   return (
     <main className="bg-primary h-screen">
-      <Navbar />
+      <Header />
       <div className="mt-8 flex flex-col gap-8 w-[90%] mx-auto">
         <Image
           alt="not-found image"

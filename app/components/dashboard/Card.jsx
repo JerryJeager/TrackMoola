@@ -24,7 +24,7 @@ const TransactionCard = ({expense, category, date, amount}) => {
                     <p className="text-[8px] text-slate-400 mt-2">{date}</p>
                 </div>
             </div>
-            <div className="border-whiteP5 border-[1px] flex justify-center items-center p-2 rounded-lg text-secondary">
+            <div className="border-whiteP5 border-[1px] flex justify-center items-center py-2 px-1 rounded-lg text-secondary text-sm">
                 -${amount}
             </div>
           </div>

@@ -3,6 +3,7 @@
 import { getGreeting } from "../lib/helpers/timeGreeting";
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { IoIosArrowDropdown } from "react-icons/io";
 import { useState } from "react";
 import TransactionCard from "../components/dashboard/Card";
 
@@ -27,15 +28,19 @@ const Dashboard = () => {
       amount: "1,200.00",
     },
     {
-      expense: "3 Notesbooks",
+      expense: "3 Notebooks",
       category: "School",
       date: "Dec 3, 2023",
       amount: "840.00",
     },
   ];
   const [isBalanceShown, setIsBalanceShown] = useState(false);
+  const [isTransactionShown, setIsTransactionShown] = useState(false);
   const handleShownBalance = () => {
     setIsBalanceShown((prev) => !prev);
+  };
+  const handleShownTransaction = () => {
+    setIsTransactionShown((prev) => !prev);
   };
   return (
     <>
@@ -47,13 +52,13 @@ const Dashboard = () => {
       </section>
 
       <section className="mx-auto w-[90%] mt-6">
-        <div className="w-full lg:w-[320px] rounded-md bg-whiteP2 py-4 px-2 ">
+        <div className="w-full lg:w-[320px] rounded-md bg-whiteP2 p-4 ">
           <p className="text-tertiary">Account Balance</p>
           <div className="mt-2 flex justify-between text-white">
             <p className={`${isBalanceShown ? "blur-0" : "blur-[5px]"}`}>
               $2,000,000
             </p>
-            <button onClick={handleShownBalance}>
+            <button aria-label="show/hide balance" onClick={handleShownBalance}>
               {isBalanceShown && <FaEyeSlash />}
               {!isBalanceShown && <FaRegEye />}
             </button>
@@ -62,13 +67,25 @@ const Dashboard = () => {
       </section>
 
       <section className="w-[90%] mx-auto mt-4">
-        <h2 className="text-white text-md lg:text-2xl">My Transactions</h2>
-        <div className="mt-2 grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
-          {
-            dummyTransactionData.map((item, index) => (
-               <TransactionCard key={index} {...item} />
-            ))
-          }
+        <div className="flex justify-between">
+          {" "}
+          <h2 className="text-white text-md lg:text-2xl">My Transactions</h2>
+          <button onClick={() => handleShownTransaction()}>
+            <IoIosArrowDropdown
+              className={`scale-[1.5] text-white ${
+                isTransactionShown ? "rotate-[540deg]" : "rotate-0"
+              }  duration-[.4] transition`}
+            />
+          </button>
+        </div>
+        <div
+          className={`${
+            isTransactionShown ? "grid" : "hidden"
+          } mt-2 grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6`}
+        >
+          {dummyTransactionData.map((item, index) => (
+            <TransactionCard key={index} {...item} />
+          ))}
         </div>
       </section>
     </>

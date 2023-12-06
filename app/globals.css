@@ -28,5 +28,5 @@ input{
 }
 
 .dashboard-nav-icons{
-    @apply scale-[1.5] lg:scale-[2] blur-[.5px];
+    @apply scale-[1.5] lg:scale-[2];
 }

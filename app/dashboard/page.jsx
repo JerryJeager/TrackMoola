@@ -67,7 +67,7 @@ const Dashboard = () => {
       </section>
 
       <section className="w-[90%] mx-auto mt-4">
-        <div className="flex justify-between">
+        <div className="flex justify-between lg:justify-normal lg:gap-8">
           {" "}
           <h2 className="text-white text-md lg:text-2xl">My Transactions</h2>
           <button onClick={() => handleShownTransaction()}>

@@ -18,6 +18,7 @@ module.exports = {
         orange2: "0px 0px 50px rgba(227, 181, 60, 0.50)",
         formBg: "rgba(35, 32, 63, 0.5)",
         whiteP2: "rgba(255, 255, 255, 0.2)",
+        whiteP3: "rgba(255, 255, 255, 0.3)"
 
       },
       backgroundImage: {

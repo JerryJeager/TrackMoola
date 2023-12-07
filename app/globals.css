@@ -28,5 +28,16 @@ input{
 }
 
 .dashboard-nav-icons{
-    @apply scale-[1.5] lg:scale-[2];
+    @apply scale-[1.5] lg:scale-[2] hover:text-secondary;
 }
+
+.select-transaction-form-button{
+    @apply w-1/2  hover:text-tertiary flex justify-center items-center font-bold p-4 h-[50px] lg:h-[70px];
+}
+.transaction-form-label{
+    @apply  bg-whiteP3 p-4 rounded-md flex flex-col gap-2 mt-2;
+}
+.transaction-form-label input, textarea, select{
+    @apply border-0 border-b-[1px] border-b-tertiary outline-none bg-transparent p-1 lg:p-2;
+}
+

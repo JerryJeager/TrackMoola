@@ -19,6 +19,7 @@ const ExpensesForm = () => {
         <label className="transaction-form-label">
           <span>Transaction</span>
           <input
+            className="w-full"
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}

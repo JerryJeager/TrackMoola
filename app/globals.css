@@ -32,7 +32,7 @@ input{
 }
 
 .select-transaction-form-button{
-    @apply w-1/2  hover:text-tertiary flex justify-center items-center font-bold p-4 h-[50px] lg:h-[70px];
+    @apply w-1/2  hover:text-tertiary flex justify-center items-center font-bold p-4 h-[50px] lg:h-[70px] border-x-[1px] border-whiteP5;
 }
 .transaction-form-label{
     @apply  bg-whiteP3 p-4 rounded-md flex flex-col gap-2 mt-2;

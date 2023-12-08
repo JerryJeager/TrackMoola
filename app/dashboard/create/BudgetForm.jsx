@@ -1,13 +1,11 @@
 import { transactionDateFormat } from "@/app/lib/helpers/dateFormat";
 import { useState } from "react";
 
-const ExpensesForm = () => {
+const BudgetForm = () => {
   const [date, setDate] = useState(transactionDateFormat());
   const [amount, setAmount] = useState();
-  const [expenseName, setExpenseName] = useState();
-  const [wallet, setWallet] = useState()
-  const [description, setDescription] = useState();
-  const [budgetCategory, setBudgetCategory] = useState();
+  const [budgetName, setBudgetName] = useState();
+  const [wallet, setWallet] = useState();
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -40,23 +38,7 @@ const ExpensesForm = () => {
           </select>
         </label>
         <label className="transaction-form-label">
-          <span>Budget Category</span>
-          <select
-            value={budgetCategory}
-            onChange={(e) => setBudgetCategory(e.target.value)}
-            name=""
-            id=""
-            className="bg-lightBlue"
-          >
-            <option value="Groceries">Groceries</option>
-            <option value="Health">Health</option>
-            <option value="Apparels">Apparels</option>
-            <option value="Electronics">Electronics</option>
-            <option value="LIfe">Life</option>
-          </select>
-        </label>
-        <label className="transaction-form-label">
-          <span>Amount</span>
+          <span>Budget Amount</span>
           <input
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -64,28 +46,20 @@ const ExpensesForm = () => {
           />
         </label>
         <label className="transaction-form-label">
-          <span>Expense Name</span>
+          <span>Buget Category Name</span>
           <input
-            value={expenseName}
-            onChange={(e) => setExpenseName(e.target.value)}
+            value={budgetName}
+            onChange={(e) => setBudgetName(e.target.value)}
             type="text"
-            placeholder="e.g: Garri"
+            placeholder="e.g: Groceries"
           />
-        </label>
-        <label className="transaction-form-label">
-          <span>Description</span>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="resize-none h-[50px]"
-          ></textarea>
         </label>
       </div>
       <button className="p-2 bg-secondary text-white mt-4 lg:mt-8 rounded-md">
-        Add Expense
+        Create Budget
       </button>
     </form>
   );
 };
 
-export default ExpensesForm;
+export default BudgetForm;

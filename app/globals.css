@@ -28,7 +28,7 @@ input{
 }
 
 .dashboard-nav-icons{
-    @apply scale-[1.5] lg:scale-[2] hover:text-secondary;
+    @apply scale-[1.5] lg:scale-[2] lg:hover:text-secondary;
 }
 
 .select-transaction-form-button{

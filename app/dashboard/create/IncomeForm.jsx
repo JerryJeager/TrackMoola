@@ -16,7 +16,7 @@ const IncomeForm = () => {
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <label className="transaction-form-label">
-          <span>Transaction</span>
+          <span>Date</span>
           <input
             className="w-full"
             type="date"

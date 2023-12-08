@@ -6,6 +6,7 @@ const BudgetForm = () => {
   const [amount, setAmount] = useState();
   const [budgetName, setBudgetName] = useState();
   const [wallet, setWallet] = useState();
+  const [plan, setPlan] = useState()
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -16,13 +17,26 @@ const BudgetForm = () => {
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <label className="transaction-form-label">
-          <span>Transaction</span>
+          <span>Date</span>
           <input
             className="w-full"
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
+        </label>
+        <label className="transaction-form-label">
+          <span>Plan</span>
+          <select
+            value={plan}
+            onChange={(e) => setPlan(e.target.value)}
+            name=""
+            id=""
+            className="bg-lightBlue"
+          >
+            <option value="Weekly">Weekly</option>
+            <option value="Monthly">Monthly</option>
+          </select>
         </label>
         <label className="transaction-form-label">
           <span>Wallet</span>

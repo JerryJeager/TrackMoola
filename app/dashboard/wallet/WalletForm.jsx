@@ -18,7 +18,7 @@ const WalletForm = () => {
           <span>Wallet Name :</span>
           <input
             type="text"
-            className="bg-primary outline-none p-2 lg:ml-8 border-whiteP5 rounded-md"
+            className="w-full bg-primary outline-none p-2  border-whiteP5 rounded-md"
             placeholder="e.g: Wallet 1"
             required
           />
@@ -27,7 +27,8 @@ const WalletForm = () => {
           <span>Account Balance :</span>
           <input
             type="number"
-            className="bg-primary border-whiteP5 rounded-md lg:ml-8 outline-none p-2"
+            max='9000000000000'
+            className="w-full bg-primary border-whiteP5 rounded-md  outline-none p-2"
             required
           />
         </label>

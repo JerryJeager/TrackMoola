@@ -6,7 +6,7 @@ body{
     @apply bg-primary;
 }
 
-.logo-h {
+.logo-h, .orange-gradient {
     text-shadow: 0px 0px 50px rgba(227, 181, 60, 0.50);
     background: linear-gradient(91deg, #E3B53C -28.49%, #E3823C 99.63%);
     background-clip: text;
@@ -35,7 +35,7 @@ input{
     @apply w-1/2  hover:text-tertiary flex justify-center items-center font-bold p-4 h-[50px] lg:h-[70px] border-x-[1px] border-whiteP5;
 }
 .transaction-form-label{
-    @apply  bg-whiteP3 p-4 rounded-md flex flex-col gap-2 mt-2;
+    @apply  bg-whiteP3 p-4 rounded-md flex flex-col gap-2 mt-2 ;
 }
 .transaction-form-label input, textarea, select{
     @apply border-0 border-b-[1px] border-b-tertiary outline-none bg-transparent p-1 lg:p-2;

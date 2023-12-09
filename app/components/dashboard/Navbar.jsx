@@ -24,10 +24,10 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href="/dashboard/history" aria-label="Budget Histroy">
+          <Link href="/dashboard/wallet" aria-label="Wallets">
             <FaWallet
               className={`dashboard-nav-icons ${
-                pathname == "/dashboard/history"
+                pathname == "/dashboard/wallet"
                   ? "text-tertiary"
                   : "text-white"
               }`}

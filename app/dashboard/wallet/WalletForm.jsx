@@ -15,7 +15,7 @@ const WalletForm = () => {
       </p>
       <div className="flex flex-col gap-4">
         <label>
-          <span>Wallet Name :</span>
+          <span>Wallet Name </span>
           <input
             type="text"
             className="bg-primary outline-none p-2 lg:ml-8 border-whiteP5 rounded-md"
@@ -24,7 +24,7 @@ const WalletForm = () => {
           />
         </label>
         <label>
-          <span>Account Balance :</span>
+          <span>Account Balance </span>
           <input
             type="number"
             className="bg-primary border-whiteP5 rounded-md lg:ml-8 outline-none p-2"

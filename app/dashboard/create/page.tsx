@@ -4,8 +4,10 @@ import ExpensesForm from "./ExpensesForm";
 import IncomeForm from "./IncomeForm";
 import BudgetForm from "./BudgetForm";
 
+type CurrentFormType = ('expense' | 'income' | 'budget')
+
 const CreateBudget = () => {
-  const [currentForm, setCurrentForm] = useState("budget");
+  const [currentForm, setCurrentForm] = useState<CurrentFormType>("budget");
   const handleExpenseForm = () => {
     setCurrentForm("expense");
   };

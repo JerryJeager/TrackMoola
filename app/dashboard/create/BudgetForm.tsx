@@ -1,13 +1,14 @@
-import { transactionDateFormat } from "@/app/lib/helpers/dateFormat";
+
 import { useState } from "react";
+import { transactionDateFormat } from "../../lib/helpers/dateFormat";
 
 const BudgetForm = () => {
   const [date, setDate] = useState(transactionDateFormat());
-  const [amount, setAmount] = useState();
-  const [budgetName, setBudgetName] = useState();
-  const [wallet, setWallet] = useState();
-  const [plan, setPlan] = useState()
-  const handleSubmit = (e) => {
+  const [amount, setAmount] = useState(null);
+  const [budgetName, setBudgetName] = useState('');
+  const [wallet, setWallet] = useState('');
+  const [plan, setPlan] = useState('')
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
   return (
@@ -22,14 +23,14 @@ const BudgetForm = () => {
             className="w-full"
             type="date"
             value={date}
-            onChange={(e) => setDate(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
           />
         </label>
         <label className="transaction-form-label">
           <span>Plan</span>
           <select
             value={plan}
-            onChange={(e) => setPlan(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPlan(e.target.value)}
             name=""
             id=""
             className="bg-lightBlue"
@@ -42,7 +43,7 @@ const BudgetForm = () => {
           <span>Wallet</span>
           <select
             value={wallet}
-            onChange={(e) => setWallet(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setWallet(e.target.value)}
             name=""
             id=""
             className="bg-lightBlue"
@@ -55,7 +56,7 @@ const BudgetForm = () => {
           <span>Budget Amount</span>
           <input
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAmount(e.target.value)}
             type="number"
           />
         </label>
@@ -63,7 +64,7 @@ const BudgetForm = () => {
           <span>Buget Category Name</span>
           <input
             value={budgetName}
-            onChange={(e) => setBudgetName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBudgetName(e.target.value)}
             type="text"
             placeholder="e.g: Groceries"
           />

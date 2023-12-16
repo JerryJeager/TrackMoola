@@ -1,7 +1,7 @@
 "use client";
 
 const WalletForm = () => {
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
   return (

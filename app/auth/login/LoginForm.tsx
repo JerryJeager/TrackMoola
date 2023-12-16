@@ -5,22 +5,20 @@ import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 const SignupForm = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [isPasswordShown, setIsPassWordShown] = useState(false);
   const handlePasswordShown = () => {
     setIsPassWordShown((prev) => !prev);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push('/dashboard')
-
+    router.push("/dashboard");
   };
   return (
     <form
       onSubmit={handleSubmit}
       className="px-4 py-6 lg:px-8 text-white flex flex-col gap-2 lg:gap-4"
     >
-     
       <label>
         <span>Email</span>
         <input

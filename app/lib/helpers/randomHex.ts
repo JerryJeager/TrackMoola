@@ -1,10 +1,10 @@
-const getRandomHexOption = (options) => {
+const getRandomHexOption = (options: (string | number)[]) => {
   return Math.floor(Math.random() * options.length);
 };
 
 export const getRandomHex = () => {
   let randomHexArr = [];
-  const hexOptions = [
+  const hexOptions: (string | number)[] = [
     0,
     1,
     2,

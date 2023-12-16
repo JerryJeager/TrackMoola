@@ -12,10 +12,14 @@ export const metadata = {
   description: "Track and Monitor your expenses with TrackMoola",
 };
 
-export default function RootLayout({ children }) {
+type LayoutProps = {
+  children: React.ReactNode
+}
+
+export default function RootLayout(props: LayoutProps) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>{props.children}</body>
     </html>
   );
 }

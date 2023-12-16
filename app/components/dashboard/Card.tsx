@@ -1,8 +1,17 @@
-import { getRandomHex } from "@/app/lib/helpers/randomHex";
 import { useState, useEffect } from "react";
+import { getRandomHex } from "../../lib/helpers/randomHex";
 
-const TransactionCard = ({expense, category, date, amount}) => {
-  const [randomHexValue, setRandomHexValue] = useState(null);
+
+type TransactionCardProps = {
+  expense: string
+  category: string
+  date: string
+  amount: string
+}
+
+
+const TransactionCard = ({expense, category, date, amount}: TransactionCardProps) => {
+  const [randomHexValue, setRandomHexValue] = useState<string | null>(null);
 
   useEffect(() => {
     const color = getRandomHex();

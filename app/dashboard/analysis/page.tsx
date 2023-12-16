@@ -2,7 +2,7 @@
 
 const BudgetAnalysis = () => {
   return (
-    <div>BudgetAnalysis</div>
+    <div className="text-white">BudgetAnalysis</div>
   )
 }
 

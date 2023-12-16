@@ -12,7 +12,7 @@ const Signup = () => {
     
         <div className="hidden lg:block">
             <Image
-            width="100%"
+            sizes="(min-width: 1024px) 55vw"
             placeholder="blur"
             alt="signup illustration image"
             src={authIllustration}

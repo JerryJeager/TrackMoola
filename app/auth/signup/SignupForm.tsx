@@ -4,11 +4,11 @@ import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-// import { signUpWithEmailAndPassword } from "@/app/auth-server-action/action";
-import supabase from "@/app/lib/supabase/server";
-// import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import supabase from "../../lib/supabase/server";
+
+
 const SignupForm = () => {
-  // const supabase = createClientComponentClient()
+
   const router = useRouter();
   const [isPasswordShown, setIsPassWordShown] = useState(false);
   const [email, setEmail] = useState("");
@@ -18,7 +18,7 @@ const SignupForm = () => {
   const handlePasswordShown = () => {
     setIsPassWordShown((prev) => !prev);
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { data, error } = await supabase.auth.signUp({
       email: email,

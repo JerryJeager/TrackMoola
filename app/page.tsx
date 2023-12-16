@@ -28,7 +28,7 @@ export default function Home() {
         <div>
           <Image
             alt="expense tracker illustration"
-            width="100%"
+            sizes="(min-width: 1024px) 55vw"
             placeholder="blur"
             src={investment}
           />

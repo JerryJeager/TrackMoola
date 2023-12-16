@@ -1,12 +1,15 @@
-import { transactionDateFormat } from "@/app/lib/helpers/dateFormat";
-import { useState } from "react";
 
-const IncomeForm = () => {
+import { useState } from "react";
+import { transactionDateFormat } from "../../lib/helpers/dateFormat";
+
+const ExpensesForm = () => {
   const [date, setDate] = useState(transactionDateFormat());
-  const [amount, setAmount] = useState();
-  const [description, setDescription] = useState();
-  const [wallet, setWallet] = useState();
-  const handleSubmit = (e) => {
+  const [amount, setAmount] = useState(null);
+  const [expenseName, setExpenseName] = useState('');
+  const [wallet, setWallet] = useState('')
+  const [description, setDescription] = useState('');
+  const [budgetCategory, setBudgetCategory] = useState('');
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
   return (
@@ -38,11 +41,36 @@ const IncomeForm = () => {
           </select>
         </label>
         <label className="transaction-form-label">
+          <span>Budget Category</span>
+          <select
+            value={budgetCategory}
+            onChange={(e) => setBudgetCategory(e.target.value)}
+            name=""
+            id=""
+            className="bg-lightBlue"
+          >
+            <option value="Groceries">Groceries</option>
+            <option value="Health">Health</option>
+            <option value="Apparels">Apparels</option>
+            <option value="Electronics">Electronics</option>
+            <option value="LIfe">Life</option>
+          </select>
+        </label>
+        <label className="transaction-form-label">
           <span>Amount</span>
           <input
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             type="number"
+          />
+        </label>
+        <label className="transaction-form-label">
+          <span>Expense Name</span>
+          <input
+            value={expenseName}
+            onChange={(e) => setExpenseName(e.target.value)}
+            type="text"
+            placeholder="e.g: Garri"
           />
         </label>
         <label className="transaction-form-label">
@@ -55,10 +83,10 @@ const IncomeForm = () => {
         </label>
       </div>
       <button className="p-2 bg-secondary text-white mt-4 lg:mt-8 rounded-md">
-        Add Income
+        Add Expense
       </button>
     </form>
   );
 };
 
-export default IncomeForm;
+export default ExpensesForm;

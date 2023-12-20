@@ -6,15 +6,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import supabase from "../../lib/supabase/server";
 
-
 const SignupForm = () => {
-
   const router = useRouter();
   const [isPasswordShown, setIsPassWordShown] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [error, setError] = useState("");
   const handlePasswordShown = () => {
     setIsPassWordShown((prev) => !prev);
   };
@@ -31,10 +30,12 @@ const SignupForm = () => {
       },
     });
     if (error) {
-      console.log(error);
+      console.log(error.message);
+      setError(error?.message);
+    } else if (data) {
+      console.log(data);
+      router.push("/dashboard");
     }
-    console.log(data);
-    router.push('/dashboard')
   };
   return (
     <form
@@ -95,6 +96,9 @@ const SignupForm = () => {
           {isPasswordShown && <FaEyeSlash />}
         </button>
       </label>
+
+      <p className="my-2 text-[#FF4B4B]">{error}</p>
+
       <button
         type="submit"
         className="w-[180px] rounded-md p-2 flex justify-center items-center bg-primary mt-4"

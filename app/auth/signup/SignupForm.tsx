@@ -51,6 +51,7 @@ const SignupForm = () => {
           placeholder="e.g: Jerry"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
+          required
         />
       </label>
       <label>

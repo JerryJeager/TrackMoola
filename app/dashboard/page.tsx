@@ -64,7 +64,7 @@ const Dashboard = () => {
               <p className="text-tertiary">Account Balance</p>
               <div className="mt-2 flex justify-between text-white">
                 <p className={`${isBalanceShown ? "blur-0" : "blur-[5px]"}`}>
-                  $2,000,000
+                  &#8358;2,000,000
                 </p>
                 <button
                   aria-label="show/hide balance"

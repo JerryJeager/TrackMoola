@@ -129,9 +129,9 @@ const ExpensesForm = () => {
           >
           <option value="" hidden>Select a Wallet</option>
             {
-              userWallets && userWallets.map(w => 
+              userWallets && userWallets.map((w, key) => 
               (
-                <option value={w.id}>{w.wallet_name}</option>
+                <option key={key} value={w.id}>{w.wallet_name}</option>
               ))
             }
           </select>
@@ -147,9 +147,9 @@ const ExpensesForm = () => {
           >
           {userBudgets.length < 1 && <option value="" hidden>No available budget category</option>}
             {
-              userBudgets && userBudgets.map(b => 
+              userBudgets && userBudgets.map((b, key) => 
               (
-                <option value={b.id}>{b.category_name}</option>
+                <option key={key} value={b.id}>{b.category_name}</option>
               ))
             }
           </select>

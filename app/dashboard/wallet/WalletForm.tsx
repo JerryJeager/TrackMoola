@@ -59,8 +59,8 @@ const WalletForm = () => {
     <>
       <ul className="list-disc ml-8 mt-2">
         {userWallets &&
-          userWallets.map((wallet) => (
-            <li key={wallet.wallet_name}>{wallet.wallet_name}</li>
+          userWallets.map((wallet, key) => (
+            <li key={key}>{wallet.wallet_name}</li>
           ))}
       </ul>
       <form

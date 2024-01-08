@@ -12,7 +12,6 @@ const BudgetForm = () => {
   const [wallet, setWallet] = useState("");
   const [plan, setPlan] = useState("Weekly");
   const [userWallets, setUserWallets] = useState([]);
-  const [maxAmount, setMaxAmount] = useState(0);
   const [error, setError] = useState("");
   const notifySuccess = () => toast("Budget has been Created.")
 

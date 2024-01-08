@@ -15,21 +15,31 @@ const ExpensesForm = () => {
   const [budgetCategory, setBudgetCategory] = useState(0);
   const [userWallets, setUserWallets] = useState([])
   const [userBudgets, setUserBudgets] = useState([])
+  const [error, setError] = useState('')
 
   const notify = (content: string) => toast(content)
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try{
-      // console.log(budgetCategory)
-      console.log(userBudgets)
       e.preventDefault()
+      setError("")
+      // console.log(budgetCategory)
+      let selectedBudget = userBudgets.filter(b => b.id == budgetCategory)
+      console.log(budgetCategory)
+      console.log(typeof budgetCategory)
+      if(selectedBudget[0].amount < amount){
+        setError("Expense Amount Exceeds Budget")
+        return
+      }
+
       let {error, data} = await  supabase
       .from("expenses")
       .insert({created_at: date, expense_name: expenseName, amount: amount, description: description, category_id: Number(budgetCategory)})
+      .select()
 
       if(error) throw new Error(error.message)
-      if(data) console.log(data)
+      if(data) notify("Expense Added Succesfully")
 
       updateBudgetAmount(amount)
     }
@@ -111,6 +121,7 @@ const ExpensesForm = () => {
             className="w-full"
             type="date"
             value={date}
+            required
             onChange={(e) => setDate(e.target.value)}
           />
         </label>
@@ -140,12 +151,18 @@ const ExpensesForm = () => {
           <span>Budget Category</span>
           <select
             value={budgetCategory}
-            onChange={(e) => setBudgetCategory(Number(e.target.value))}
+            onChange={(e) => {
+              setBudgetCategory(Number(e.target.value))
+              }}
             name=""
             id=""
+            required
             className="bg-lightBlue"
           >
           {userBudgets.length < 1 && <option value="" hidden>No available budget category</option>}
+            <option value="" hidden>
+                select a Budget
+              </option>
             {
               userBudgets && userBudgets.map((b, key) => 
               (
@@ -160,6 +177,7 @@ const ExpensesForm = () => {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             type="number"
+            required
           />
         </label>
         <label className="transaction-form-label">
@@ -168,6 +186,7 @@ const ExpensesForm = () => {
             value={expenseName}
             onChange={(e) => setExpenseName(e.target.value)}
             type="text"
+            required
             placeholder="e.g: Garri"
           />
         </label>
@@ -177,9 +196,14 @@ const ExpensesForm = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="resize-none h-[50px]"
+            required
           ></textarea>
         </label>
       </div>
+      {
+        error && 
+        <p className="text-secondary my-1">{error}</p>
+      }
       <button className="p-2 bg-secondary text-white mt-4 lg:mt-8 rounded-md">
         Add Expense
       </button>

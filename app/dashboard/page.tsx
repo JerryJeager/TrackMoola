@@ -97,7 +97,7 @@ const Dashboard = () => {
   }
 
   const getCategories = (id: string) => {
-    
+
   }
 
   return (
@@ -130,7 +130,7 @@ const Dashboard = () => {
               </option>
               {userWallets &&
                 userWallets.map((w) => (
-                  <option value={w.id}>{w.wallet_name}</option>
+                  <option key={w.id} value={w.id}>{w.wallet_name}</option>
                 ))}
             </select>
           </div>

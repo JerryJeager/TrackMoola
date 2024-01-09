@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 import supabase from "../lib/supabase/server";
 import TransactionCard from "../components/ui/Card";
 import NewUser from "../components/ui/NewUser";
-import getUserWallets from "../lib/actions";
 import Loading from "../components/ui/loading";
 
 const Dashboard = () => {

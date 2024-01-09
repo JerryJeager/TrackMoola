@@ -1,13 +1,13 @@
 import Image from "next/image";
-import Navbar from "./components/ui/Header";
 import investment from "./investment2.png";
 import Link from "next/link";
+import Header from "./components/layout/Header";
 
 
 export default function Home() {
   return (
     <main className="bg-primary h-screen relative">
-      <Navbar />
+      <Header />
       <section className="flex items-center justify-between flex-col lg:flex-row pt-14 w-[90%] mx-auto">
         <div className="lg:w-[55%] text-white bg-homeRadialBg4">
           <h2 className="text-3xl lg:text-5xl lg:leading-[60px] font-bold">

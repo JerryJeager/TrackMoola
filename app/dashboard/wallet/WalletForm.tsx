@@ -24,14 +24,21 @@ const WalletForm = () => {
 
       // console.log(data)
 
-      setUserWallets([...data].reverse());
+      if (data) {
+        if (data.length > 0) {
+          console.log(data);
+          setUserWallets([...data].reverse());
+        } else if (data.length < 1) {
+          console.log("no available wallets");
+        }
+      }
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     getWallets();
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setError("");

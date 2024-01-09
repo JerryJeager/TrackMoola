@@ -1,7 +1,7 @@
 import Image from "next/image";
 import notFound from "./notFound.png";
-import Header from "./components/ui/Header";
 import Link from "next/link";
+import Header from "./components/layout/Header";
 
 const NotFound = () => {
   return (

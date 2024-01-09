@@ -1,10 +1,12 @@
-import Navbar from "../components/dashboard/Navbar";
-import Header from "../components/ui/Header";
+
+import Header from "../components/layout/Header";
+import Navbar from "../components/layout/Navbar";
 import { AuthContextProvider } from "../context/AuthContext";
 
 type LayoutProps = {
   children: React.ReactNode
 }
+
 
 
 export default function RootLayout(props: LayoutProps) {

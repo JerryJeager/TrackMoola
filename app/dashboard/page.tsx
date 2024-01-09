@@ -234,7 +234,7 @@ const Dashboard = () => {
                     <TransactionCard key={index} expense={item.expense_name} category={item.category_name} date={item.created_at} amount={item.amount} />
                   ))}
                   {
-                    transactions.length < 1 && <p className="text-slate-500">You've not made any transactions yet!</p>
+                    transactions.length < 1 && <p className="text-slate-500">You&#39;ve not made any transactions yet!</p>
                   }
                 </div>
               </section>

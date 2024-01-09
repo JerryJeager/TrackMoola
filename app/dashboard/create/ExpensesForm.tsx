@@ -248,7 +248,7 @@ const ExpensesForm = () => {
           </label>
         </div>
         {error && <p className="text-secondary my-1">{error}</p>}
-        <button className="p-2 bg-secondary text-white mt-4 lg:mt-8 rounded-md">
+        <button  className="p-2 bg-secondary text-white mt-4 lg:mt-8 rounded-md">
           {!isLoading ? "Add Expense" : <Spinner />}
         </button>
       </form>

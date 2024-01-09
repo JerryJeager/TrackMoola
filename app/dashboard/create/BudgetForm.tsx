@@ -157,7 +157,7 @@ const BudgetForm = () => {
           </label>
         </div>
         {error && <p className="text-secondary my-2">{error}</p>}
-        <button className="p-2 bg-secondary text-white mt-4 lg:mt-8 rounded-md">
+        <button  className="p-2 bg-secondary text-white mt-4 lg:mt-8 rounded-md">
           {!isLoading ? "Create Budget" : <Spinner />}
         </button>
       </form>

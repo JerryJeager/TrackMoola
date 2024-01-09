@@ -2,6 +2,7 @@
 
 import { useState, useContext, createContext, useEffect, useMemo } from "react";
 import supabase from "../lib/supabase/server";
+import { redirect } from "next/navigation";
 
 type AuthContextProps = {
     children: React.ReactNode
@@ -24,6 +25,7 @@ export const AuthContextProvider = (props: AuthContextProps) => {
       }
     } catch (error) {
       console.log(error);
+      redirect("/auth/login")
     }
   };
 

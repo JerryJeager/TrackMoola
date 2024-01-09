@@ -3,6 +3,7 @@ import { transactionDateFormat } from "../../lib/helpers/dateFormat";
 import supabase from "../../lib/supabase/server";
 import { useAuthContext } from "../../context/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
+import Spinner from "../../components/ui/Spinner";
 
 const BudgetForm = () => {
   const { user } = useAuthContext();
@@ -13,10 +14,12 @@ const BudgetForm = () => {
   const [plan, setPlan] = useState("Weekly");
   const [userWallets, setUserWallets] = useState([]);
   const [error, setError] = useState("");
-  const notifySuccess = () => toast("Budget has been Created.")
+  const [isLoading, setIsLoading] = useState(false);
+  const notifySuccess = () => toast("Budget has been Created.");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    setError("")
+    setError("");
+    setIsLoading(true);
     try {
       e.preventDefault();
       let selectedWallet = userWallets.filter((w) => w.id == wallet);
@@ -37,10 +40,14 @@ const BudgetForm = () => {
       });
 
       if (error) throw new Error("Budget Category Already Exits");
-      else notifySuccess()
+      else {
+        notifySuccess();
+        setIsLoading(false);
+      }
     } catch (error) {
       console.log(error);
       setError(error.message);
+      setIsLoading(false);
     }
   };
 
@@ -59,8 +66,10 @@ const BudgetForm = () => {
   };
 
   useEffect(() => {
-    getWallets();
-  }, []);
+    if (user && user.id) {
+      getWallets();
+    }
+  }, [user]);
 
   return (
     <>
@@ -75,6 +84,7 @@ const BudgetForm = () => {
               className="w-full"
               type="date"
               value={date}
+              required
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setDate(e.target.value)
               }
@@ -117,6 +127,9 @@ const BudgetForm = () => {
                     {wallet.wallet_name}
                   </option>
                 ))}
+              {userWallets.length < 1 && (
+                <option disabled={true}>No available wallets</option>
+              )}
             </select>
           </label>
           <label className="transaction-form-label">
@@ -145,7 +158,7 @@ const BudgetForm = () => {
         </div>
         {error && <p className="text-secondary my-2">{error}</p>}
         <button className="p-2 bg-secondary text-white mt-4 lg:mt-8 rounded-md">
-          Create Budget
+          {!isLoading ? "Create Budget" : <Spinner />}
         </button>
       </form>
       <div>

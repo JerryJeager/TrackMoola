@@ -5,17 +5,20 @@ import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import supabase from "../../lib/supabase/server";
+import Spinner from "../../components/ui/Spinner";
 const SignupForm = () => {
   const router = useRouter();
   const [isPasswordShown, setIsPassWordShown] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
   const handlePasswordShown = () => {
     setIsPassWordShown((prev) => !prev);
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true)
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
@@ -23,9 +26,11 @@ const SignupForm = () => {
     if (error) {
       console.log(error);
       setError(error?.message);
+      setIsLoading(false)
     } else if (data) {
       console.log(data);
       router.push("/dashboard");
+      setIsLoading(false)
     }
   };
   return (
@@ -70,7 +75,7 @@ const SignupForm = () => {
         type="submit"
         className="w-[180px] rounded-md p-2 flex justify-center items-center bg-primary mt-4"
       >
-        Login
+        {!isLoading ? 'Login' : <Spinner />}
       </button>
     </form>
   );

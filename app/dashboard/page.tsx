@@ -7,7 +7,7 @@ import { IoIosArrowDropdown } from "react-icons/io";
 import { useEffect, useState } from "react";
 // import TransactionCard from "../components/ui/Card";
 import { useAuthContext } from "../context/AuthContext";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import supabase from "../lib/supabase/server";
 import TransactionCard from "../components/ui/Card";
 import NewUser from "../components/ui/NewUser";
@@ -19,9 +19,11 @@ const Dashboard = () => {
   // console.log(user.id)
   const router = useRouter();
   const [userWallets, setUserWallets] = useState([]);
+  const [userBudgets, setUserBudgets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [wallet, setWallet] = useState("");
-  const [balance, setBalance] = useState("xxx");
+  const [balance, setBalance] = useState("0");
+  const [transactions, setTransactions] = useState([]);
   // const [name, setName] = useState('')
   // console.log(user.user_metadata)
   const dummyTransactionData = [
@@ -91,13 +93,62 @@ const Dashboard = () => {
     setBalance(choosenWalletBalance[0].account_balance);
   };
 
-  const getTransactions = (id: string) => {
+  const getTransactions = async (id: string, categories: any) => {
+    try {
+      // console.log(wallet)
+      // console.log(id)
+      const transactionsData = [];
 
-  }
+      const { error, data } = await supabase
+        .from("expenses")
+        .select()
+        .eq("wallet_id", id);
 
-  const getCategories = (id: string) => {
+      if (error) throw new Error(error.message);
+      if (data) {
+        console.log(data);
+        const expensesArr  = [...data]
+        console.log(categories);
+        if (data.length > 0) {
+          for (let i = 0; i < categories.length; i++) {
+            for (let j = 0; j < expensesArr.length; j++) {
+              if (categories[i].wallet_id === expensesArr[j].wallet_id) {
+                expensesArr[j] = {...expensesArr[j], category_name: categories[i].category_name}
+              }
+            }
+          }
+        }
+        
+        setTransactions(expensesArr);
+        // console.log(transactionsData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  }
+  const getCategories = async (id: string) => {
+    try {
+      // console.log(wallet)
+      // console.log(id)
+
+      const { error, data } = await supabase
+        .from("categories")
+        .select()
+        .eq("wallet_id", id);
+
+      if (error) throw new Error(error.message);
+      if (data) {
+        if (data.length > 0) {
+          setUserBudgets([...data]);
+          console.log(data);
+          getTransactions(id, data);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -113,30 +164,33 @@ const Dashboard = () => {
             </p>
           </section>
 
-          <div className="mx-auto w-[90%]">
-            <select
-              name=""
-              id=""
-              className="text-tertiary border-b-white"
-              value={wallet}
-              onChange={(e) => {
-                setWallet(e.target.value);
-                getBalance(e.target.value);
-              }}
-            >
-              <option value="" hidden>
-                Select a Wallet
-              </option>
-              {userWallets &&
-                userWallets.map((w) => (
-                  <option key={w.id} value={w.id}>{w.wallet_name}</option>
-                ))}
-            </select>
-          </div>
-
           {userWallets.length < 1 && !isLoading && <NewUser />}
           {userWallets.length > 0 && (
             <div>
+              <div className="mx-auto w-[90%]">
+                <select
+                  name=""
+                  id=""
+                  className="text-tertiary border-b-white"
+                  value={wallet}
+                  onChange={(e) => {
+                    setWallet(e.target.value);
+                    getBalance(e.target.value);
+                    getCategories(e.target.value);
+                    // getTransactions(e.target.value);
+                  }}
+                >
+                  <option value="" hidden>
+                    Select a Wallet
+                  </option>
+                  {userWallets &&
+                    userWallets.map((w) => (
+                      <option key={w.id} value={w.id}>
+                        {w.wallet_name}
+                      </option>
+                    ))}
+                </select>
+              </div>
               <section className="mx-auto w-[90%] mt-6">
                 <div className="w-full lg:w-[320px] rounded-md bg-whiteP2 p-4 ">
                   <p className="text-tertiary">Account Balance</p>
@@ -144,7 +198,7 @@ const Dashboard = () => {
                     <p
                       className={`${isBalanceShown ? "blur-0" : "blur-[5px]"}`}
                     >
-                      &#8358;{balance}
+                      &#8358;{balance.toLocaleString()}
                     </p>
                     <button
                       aria-label="show/hide balance"
@@ -176,9 +230,12 @@ const Dashboard = () => {
                     isTransactionShown ? "grid" : "hidden"
                   } mt-2 grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6`}
                 >
-                  {dummyTransactionData.map((item, index) => (
-                    <TransactionCard key={index} {...item} />
+                  {transactions.map((item, index) => (
+                    <TransactionCard key={index} expense={item.expense_name} category={item.category_name} date={item.created_at} amount={item.amount} />
                   ))}
+                  {
+                    transactions.length < 1 && <p className="text-slate-500">You've not made any transactions yet!</p>
+                  }
                 </div>
               </section>
             </div>

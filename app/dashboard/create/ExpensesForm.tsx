@@ -3,6 +3,7 @@ import { transactionDateFormat } from "../../lib/helpers/dateFormat";
 import { useAuthContext } from "../../context/AuthContext";
 import supabase from "../../lib/supabase/server";
 import toast, { Toaster } from "react-hot-toast";
+import Spinner from "../../components/ui/Spinner";
 
 const ExpensesForm = () => {
   const { user } = useAuthContext();
@@ -15,6 +16,7 @@ const ExpensesForm = () => {
   const [userWallets, setUserWallets] = useState([]);
   const [userBudgets, setUserBudgets] = useState([]);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const notify = (content: string) => toast(content);
 
@@ -22,6 +24,7 @@ const ExpensesForm = () => {
     try {
       e.preventDefault();
       setError("");
+      setIsLoading(true);
       // console.log(budgetCategory)
       let selectedBudget = userBudgets.filter((b) => b.id == budgetCategory);
       console.log(budgetCategory);
@@ -39,21 +42,24 @@ const ExpensesForm = () => {
           amount: amount,
           description: description,
           category_id: Number(budgetCategory),
+          wallet_id: wallet,
         })
         .select();
 
       if (error) throw new Error(error.message);
       if (data) {
         notify("Expense Added Succesfully");
-        setAmount('');
+        setAmount("");
         setExpenseName("");
         setDescription("");
+        setIsLoading(false);
       }
 
       updateBudgetAmount(amount);
       updateMainAccountAmount(amount);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -89,7 +95,7 @@ const ExpensesForm = () => {
   };
 
   const updateBudgetAmount = async (exp: number) => {
-    getBudgets(wallet)
+    getBudgets(wallet);
     try {
       let currentAmount = userBudgets.filter(
         (budget) => budget.id === Number(budgetCategory)
@@ -111,13 +117,11 @@ const ExpensesForm = () => {
   };
 
   const updateMainAccountAmount = async (exp: number) => {
-    getWallets()
-    console.log(userWallets)
-    let currentAmount = userWallets.filter(
-      (w) => w.id === Number(wallet)
-    );
-    console.log(currentAmount)
-    console.log(wallet)
+    getWallets();
+    console.log(userWallets);
+    let currentAmount = userWallets.filter((w) => w.id === Number(wallet));
+    console.log(currentAmount);
+    console.log(wallet);
     try {
       const { error, data } = await supabase
         .from("wallets")
@@ -133,8 +137,10 @@ const ExpensesForm = () => {
   };
 
   useEffect(() => {
-    getWallets();
-  }, []);
+    if (user && user.id) {
+      getWallets();
+    }
+  }, [user]);
 
   useEffect(() => {
     if (userBudgets.length < 1 && wallet !== "")
@@ -179,6 +185,9 @@ const ExpensesForm = () => {
                     {w.wallet_name}
                   </option>
                 ))}
+              {userWallets.length < 1 && (
+                <option disabled={true}>No available wallets</option>
+              )}
             </select>
           </label>
           <label className="transaction-form-label">
@@ -240,7 +249,7 @@ const ExpensesForm = () => {
         </div>
         {error && <p className="text-secondary my-1">{error}</p>}
         <button className="p-2 bg-secondary text-white mt-4 lg:mt-8 rounded-md">
-          Add Expense
+          {!isLoading ? "Add Expense" : <Spinner />}
         </button>
       </form>
 

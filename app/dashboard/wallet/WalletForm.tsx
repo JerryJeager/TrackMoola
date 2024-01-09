@@ -5,6 +5,7 @@ import supabase from "../../lib/supabase/server";
 import { useAuthContext } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import Spinner from "../../components/ui/Spinner";
 
 const WalletForm = () => {
   const { user } = useAuthContext();
@@ -13,6 +14,7 @@ const WalletForm = () => {
   const [balance, setBalance] = useState<number | null>(null);
   const [error, setError] = useState("");
   const [userWallets, setUserWallets] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const notifySuccess = () => toast("Wallet Created Successfully.");
   const getWallets = async () => {
@@ -37,11 +39,14 @@ const WalletForm = () => {
     }
   };
   useEffect(() => {
-    getWallets();
+    if (user && user.id) {
+      getWallets();
+    }
   }, [user]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setError("");
+    setIsLoading(true);
     try {
       e.preventDefault();
       console.log(name, balance);
@@ -60,6 +65,7 @@ const WalletForm = () => {
       // console.log(error.code)
     } finally {
       getWallets();
+      setIsLoading(false);
     }
   };
   return (
@@ -104,7 +110,10 @@ const WalletForm = () => {
           </label>
           {error && <p className="text-secondary my-1">{error}</p>}
         </div>
-        <button className="bg-secondary rounded-md p-2 mt-2">Save</button>
+        <button className="bg-secondary rounded-md p-2 mt-2">
+          {" "}
+          {!isLoading ? "Save" : <Spinner />}
+        </button>
       </form>
 
       <div>

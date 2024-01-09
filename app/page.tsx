@@ -6,6 +6,7 @@ import Header from "./components/layout/Header";
 
 export default function Home() {
   return (
+    <>
     <main className="bg-primary h-screen relative">
       <Header />
       <section className="flex items-center justify-between flex-col lg:flex-row pt-14 w-[90%] mx-auto">
@@ -35,5 +36,9 @@ export default function Home() {
         </div>
       </section>
     </main>
+    <footer className="bg-primary text-center text-slate-600">
+      <p>Cooked with 💙 by <a href="https://github.com/JerryJeager" className="underline">👨‍🍳Jeager</a></p>
+    </footer>
+    </>
   );
 }

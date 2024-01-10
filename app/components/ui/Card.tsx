@@ -34,7 +34,7 @@ const TransactionCard = ({expense, category, date, amount}: TransactionCardProps
                 </div>
             </div>
             <div className="border-whiteP5 border-[1px] flex justify-center items-center py-2 px-1 rounded-lg text-secondary text-sm">
-                -${amount.toLocaleString()}
+                -&#8358;{amount.toLocaleString()}
             </div>
           </div>
           <div

@@ -112,7 +112,7 @@ const Dashboard = () => {
         if (data.length > 0) {
           for (let i = 0; i < categories.length; i++) {
             for (let j = 0; j < expensesArr.length; j++) {
-              if (categories[i].wallet_id === expensesArr[j].wallet_id) {
+              if (categories[i].id === expensesArr[j].category_id) {
                 expensesArr[j] = {...expensesArr[j], category_name: categories[i].category_name}
               }
             }
@@ -121,6 +121,7 @@ const Dashboard = () => {
         
         setTransactions(expensesArr);
         // console.log(transactionsData);
+        console.log(expensesArr)
       }
     } catch (error) {
       console.log(error);

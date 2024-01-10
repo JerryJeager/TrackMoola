@@ -2,7 +2,7 @@
 
 import { useState, useContext, createContext, useEffect, useMemo } from "react";
 import supabase from "../lib/supabase/server";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 type AuthContextProps = {
     children: React.ReactNode
@@ -12,6 +12,7 @@ const AuthContext = createContext<any>({});
 
 export const AuthContextProvider = (props: AuthContextProps) => {
   const [user, setUser] = useState({});
+  const router = useRouter()
 
   const onAuthStateChange = async () => {
     try {
@@ -22,10 +23,14 @@ export const AuthContextProvider = (props: AuthContextProps) => {
         setUser(user);
         console.log(user)
         console.log(user.identities[0].user_id)
+      }else if(!user){
+        // redirect("/auth/login")
+        router.push("/auth/login")
       }
     } catch (error) {
       console.log(error);
-      redirect("/auth/login")
+      // redirect("/auth/login")
+      router.push("/auth/login")
     }
   };
 

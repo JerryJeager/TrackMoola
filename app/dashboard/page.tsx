@@ -71,7 +71,7 @@ const Dashboard = () => {
 
       if (data.length > 0) {
         console.log(data);
-        setUserWallets([...data].reverse());
+        setUserWallets([...data]);
         setIsLoading(false);
       } else if (data.length < 1) {
         console.log("no available wallets");

@@ -2,11 +2,31 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import supabase from "../../lib/supabase/server";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
-import Loading from "../../components/ui/loading";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+} from "chart.js";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+// import faker from 'faker';
+import { Pie, Bar } from "react-chartjs-2";
+import Loading from "../../components/ui/loading";
+import NewUser from "../../components/ui/NewUser";
+
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title
+);
 
 const BudgetAnalysis = () => {
   const { user } = useAuthContext();
@@ -18,6 +38,21 @@ const BudgetAnalysis = () => {
   const [expense, setExpense] = useState(0);
   const [income, setIncome] = useState(0);
 
+  const labels = ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"]
+
+  const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top' as const,
+    },
+    title: {
+      display: true,
+      text: 'Weekly Transactions chart',
+    },
+  },
+};
+
   const data = {
     labels: ["Expenses", "Income"],
     datasets: [
@@ -27,6 +62,23 @@ const BudgetAnalysis = () => {
         backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(75, 192, 192, 0.2)"],
         borderColor: ["rgba(255, 99, 132, 1)", "rgba(75, 192, 192, 1)"],
         borderWidth: 1,
+      },
+    ],
+  };
+
+
+  const data2 = {
+    labels,
+    datasets: [
+      {
+        label: "Expense",
+        data: [2300, 500, 1000, 1500, 800, 0, 400, 450],
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "Income",
+        data: [0, 2000, 500, 0, 0, 0, 5000],
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
   };
@@ -88,8 +140,9 @@ const BudgetAnalysis = () => {
     <div className="text-white mx-auto w-[90%] mt-4">
       <h2 className="text-xl font-bold">Budget Analysis</h2>
       {isLoading && <Loading />}
+      {userWallets.length < 1 && !isLoading && <NewUser />}
       {userWallets.length > 0 && (
-        <div>
+        <div className="mt-4">
           <select
             name=""
             id=""
@@ -134,6 +187,8 @@ const BudgetAnalysis = () => {
               </p>
             )}
           </div>
+
+          <Bar options={options} data={data2} />
         </div>
       )}
     </div>

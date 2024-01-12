@@ -19,6 +19,7 @@ import Loading from "../../components/ui/loading";
 import NewUser from "../../components/ui/NewUser";
 import dayjs from "dayjs";
 import { dayFormat, monthFormat } from "../../lib/helpers/dateFormat";
+import BarChart from "../../components/ui/BarChart";
 
 ChartJS.register(
   ArcElement,
@@ -39,40 +40,31 @@ const BudgetAnalysis = () => {
 
   const [expense, setExpense] = useState(0);
   const [income, setIncome] = useState(0);
-  
-  const [weeklyIncome, setWeeklyIncome] = useState([])
+
+  const [weeklyIncome, setWeeklyIncome] = useState([]);
+  const [weeklyExpense, setWeeklyExpense] = useState([]);
 
   const last7Days = dayjs().subtract(7, "day").format("YYYY-MM-DD");
-  const dateLabels = []
-  dateLabels.push(`${dayFormat(dayjs().day())}, ${dayjs().date()}`)
-  for(let i = 1; i < 7; i++){
-    dateLabels.push(`${dayFormat(dayjs().subtract(i, "day").day())},${dayjs().subtract(i, 'day').date()}`)
+  const dateLabels = [];
+  dateLabels.push(`${dayFormat(dayjs().day())}, ${dayjs().date()}`);
+  for (let i = 1; i < 7; i++) {
+    dateLabels.push(
+      `${dayFormat(dayjs().subtract(i, "day").day())},${dayjs()
+        .subtract(i, "day")
+        .date()}`
+    );
   } // last 7 days
   const labels = [...dateLabels].reverse();
-  
 
-  const dateLabels2 = []
-  dateLabels2.push(dayjs().format("YYYY-MM-DD"))
-  for(let i  = 1; i < 7; i++){
-    dateLabels2.push(dayjs().subtract(i, 'day').format("YYYY-MM-DD"))
+  const dateLabels2 = [];
+  dateLabels2.push(dayjs().format("YYYY-MM-DD"));
+  for (let i = 1; i < 7; i++) {
+    dateLabels2.push(dayjs().subtract(i, "day").format("YYYY-MM-DD"));
   }
   // console.log(dateLabels2)
 
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
-      },
-      title: {
-        display: true,
-        text: "Weekly Transactions chart",
-      },
-    },
-  };
-
   const data = {
-    labels: ["Expenses", "Income"],
+    labels: ["Expenses(₦)", "Income(₦)"],
     datasets: [
       {
         label: "",
@@ -84,7 +76,9 @@ const BudgetAnalysis = () => {
     ],
   };
 
-  const data2 = {
+  let totalWeeklyIncome = [];
+
+  const [data2, setData2] = useState({
     labels,
     datasets: [
       {
@@ -94,11 +88,11 @@ const BudgetAnalysis = () => {
       },
       {
         label: "Income",
-        data: [0, 2000, 500, 0, 0, 0, 5000],
+        data: [],
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
-  };
+  });
 
   const getWallets = async () => {
     setIsLoading(true);
@@ -148,10 +142,10 @@ const BudgetAnalysis = () => {
     }
   };
 
-  const getLast7DaysIncome = async (id: string) => {
+  const getLast7DaysIncome = async (id: string, db: "income" | "expenses") => {
     try {
       const { error, data } = await supabase
-        .from("income")
+        .from(`${db}`)
         .select()
         .eq("wallet_id", id)
         .gt("created_at", last7Days);
@@ -160,24 +154,37 @@ const BudgetAnalysis = () => {
         console.log(data);
 
         if (data.length > 0) {
-          const totalIncome = [];
-          let groupedByDate = Object.groupBy(
-            data,
-            ({ created_at }) => created_at
-          );
-          for (let item in groupedByDate) {
-            totalIncome.push({
-              date: item,
-              total: groupedByDate[item].reduce((a, b) => a + b.amount, 0),
-            });
+          const totalIncome = data.reduce((acc, current) => {
+            const date = current.created_at;
+            const amount = current.amount;
+
+            const existingEntry = acc.find((entry) => entry.date === date);
+
+            if (existingEntry) {
+              existingEntry.total += amount;
+            } else {
+              acc.push({ date, total: amount });
+            }
+
+            return acc;
+          }, []);
+          // console.log(totalIncome);
+
+          const resultArray = dateLabels2.map((date) => {
+            const matchingEntry = totalIncome.find(
+              (entry) => entry.date === date
+            );
+            return matchingEntry ? matchingEntry.total : 0;
+          });
+
+          if (db === "income") {
+            setWeeklyIncome([...resultArray].reverse());
+          } else {
+            setWeeklyExpense([...resultArray].reverse());
           }
-          console.log(totalIncome);
 
-          // for(let item in dateLabels2){
-
-          // }
-
-          console.log(weeklyIncome)
+          // console.log(weeklyExpense)
+          // console.log(weeklyIncome)
         }
       }
     } catch (error) {
@@ -190,6 +197,12 @@ const BudgetAnalysis = () => {
       getWallets();
     }
   }, [user]);
+
+  useEffect(() => {
+    setWeeklyExpense([]);
+    setWeeklyIncome([]);
+  }, [wallet]);
+
   return (
     <div className="text-white mx-auto w-[90%] mt-4">
       <h2 className="text-xl font-bold">Budget Analysis</h2>
@@ -208,7 +221,8 @@ const BudgetAnalysis = () => {
               getTotalTransactionAmount(e.target.value, "income");
               getTotalTransactionAmount(e.target.value, "expenses"); // getCategories(e.target.value);
               // getTransactions(e.target.value);
-              getLast7DaysIncome(e.target.value);
+              getLast7DaysIncome(e.target.value, "income");
+              getLast7DaysIncome(e.target.value, "expenses");
             }}
           >
             <option value="" hidden>
@@ -242,8 +256,16 @@ const BudgetAnalysis = () => {
               </p>
             )}
           </div>
-          <p className="text-slate-500 text-sm mt-4">{monthFormat(dayjs().month())} , {dayjs().year()}</p>
-          <Bar options={options} data={data2} />
+
+          <div>
+            <p className="text-slate-500 text-sm mt-4">
+              {monthFormat(dayjs().month())}, {dayjs().year()}
+            </p>
+            <BarChart
+              incomeWeeklyTotal={weeklyIncome}
+              expenseWeeklyTotal={weeklyExpense}
+            />
+          </div>
         </div>
       )}
     </div>

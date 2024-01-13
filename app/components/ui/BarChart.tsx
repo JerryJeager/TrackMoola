@@ -37,7 +37,7 @@ const BarChart = ({ incomeWeeklyTotal, expenseWeeklyTotal }: BarChartPropsType) 
   dateLabels.push(`${dayFormat(dayjs().day())}, ${dayjs().date()}`);
   for (let i = 1; i < 7; i++) {
     dateLabels.push(
-      `${dayFormat(dayjs().subtract(i, "day").day())},${dayjs()
+      `${dayFormat(dayjs().subtract(i, "day").day())}, ${dayjs()
         .subtract(i, "day")
         .date()}`
     );

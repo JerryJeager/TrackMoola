@@ -390,7 +390,7 @@ const BudgetAnalysis = () => {
                 <Doughnut data={data2} />
               </div>
 
-              {totalExpensesOnBudget !== 0 || budgetAmount !== 0  && (
+              {totalExpensesOnBudget !== 0   && (
                 <>
                   <p className="text-slate-500 text-sm mt-2">
                     You have used up{" "}

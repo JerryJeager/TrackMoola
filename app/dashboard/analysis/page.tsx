@@ -296,10 +296,12 @@ const BudgetAnalysis = () => {
               getLast7DaysIncome(e.target.value, "expenses");
 
               getUserBudgets(e.target.value);
+
+              notify("Click on charts to see more details")
             }}
           >
             <option value="" hidden>
-              Select a Wallet
+              Select a Wallet to view details
             </option>
             {userWallets &&
               userWallets.map((w) => (
@@ -368,7 +370,7 @@ const BudgetAnalysis = () => {
                     </option>
                   )}
                   <option value="" hidden>
-                    select a Budget
+                    select a Category
                   </option>
                   {userBudgets &&
                     userBudgets.map((b, key) => (
@@ -384,11 +386,11 @@ const BudgetAnalysis = () => {
                 {budgetAmount ? ` ₦${budgetAmount.toLocaleString()}` : " ₦0"}
               </p>
 
-              <div className="w-[60%] mx-auto">
+              <div className="w-[60%] lg:w-[300px] mx-auto lg:mx-4">
                 <Doughnut data={data2} />
               </div>
 
-              {totalExpensesOnBudget !== 0 && budgetAmount !== 0  && (
+              {totalExpensesOnBudget !== 0 || budgetAmount !== 0  && (
                 <>
                   <p className="text-slate-500 text-sm mt-2">
                     You have used up{" "}

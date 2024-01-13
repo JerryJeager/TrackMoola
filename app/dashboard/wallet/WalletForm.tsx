@@ -11,7 +11,7 @@ const WalletForm = () => {
   const { user } = useAuthContext();
   const router = useRouter();
   const [name, setName] = useState("");
-  const [balance, setBalance] = useState<number | null>(null);
+  const [balance, setBalance] = useState<number>(null);
   const [error, setError] = useState("");
   const [userWallets, setUserWallets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -66,14 +66,16 @@ const WalletForm = () => {
     } finally {
       getWallets();
       setIsLoading(false);
+      setName("")
+      setBalance(undefined)
     }
   };
   return (
     <>
-      <ul className="list-disc ml-8 mt-2">
+      <ul className="list-disc ml-8 mt-2 max-h-[100px] overflow-y-scroll">
         {userWallets &&
           userWallets.map((wallet, key) => (
-            <li key={key}>{wallet.wallet_name}</li>
+            <li key={key}>{wallet.wallet_name} (&#8358;{wallet.account_balance.toLocaleString()})</li>
           ))}
       </ul>
       <form

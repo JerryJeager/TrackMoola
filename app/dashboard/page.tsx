@@ -26,32 +26,7 @@ const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
   // const [name, setName] = useState('')
   // console.log(user.user_metadata)
-  const dummyTransactionData = [
-    {
-      expense: "Cough Drugs",
-      category: "Health",
-      date: "Dec 6, 2023",
-      amount: "45.00",
-    },
-    {
-      expense: "Garri",
-      category: "Groceries",
-      date: "Dec 5, 2023",
-      amount: "3,200.00",
-    },
-    {
-      expense: "Groundnut",
-      category: "Groceries",
-      date: "Dec 4, 2023",
-      amount: "1,200.00",
-    },
-    {
-      expense: "3 Notebooks",
-      category: "School",
-      date: "Dec 3, 2023",
-      amount: "840.00",
-    },
-  ];
+  
   const [isBalanceShown, setIsBalanceShown] = useState(false);
   const [isTransactionShown, setIsTransactionShown] = useState(false);
   const handleShownBalance = () => {
@@ -121,7 +96,7 @@ const Dashboard = () => {
         
         setTransactions(expensesArr);
         // console.log(transactionsData);
-        console.log(expensesArr)
+        // console.log(expensesArr)
       }
     } catch (error) {
       console.log(error);

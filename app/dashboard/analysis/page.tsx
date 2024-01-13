@@ -396,12 +396,12 @@ const BudgetAnalysis = () => {
                     your budget
                   </p>
 
-                  {/* <button
+                  <button
                     onClick={deleteBudget}
                     className="rounded-md p-2 text-center w-[140px]text-white bg-[#FF4B4B] mt-4"
                   >
                     {!isDeleteLoading ? "Delete Category" : <Spinner />}
-                  </button> */}
+                  </button>
                 </>
               )}
             </div>

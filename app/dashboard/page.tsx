@@ -45,8 +45,12 @@ const Dashboard = () => {
         .eq("user_id", user.id);
 
       if (data.length > 0) {
-        console.log(data);
+        // console.log(data[0].id);
+
         setUserWallets([...data]);
+        setWallet(data[0].id)
+        getBalance(data[0].id, data);
+        getCategories(data[0].id);
         setIsLoading(false);
       } else if (data.length < 1) {
         console.log("no available wallets");
@@ -63,8 +67,10 @@ const Dashboard = () => {
     }
   }, [user]);
 
-  const getBalance = (id: string) => {
-    const choosenWalletBalance = userWallets.filter((w) => w.id == id);
+  const getBalance = (id: string, allWallets: any) => {
+    // console.log(userWallets)
+    const choosenWalletBalance = allWallets.filter((w) => w.id == id);
+    console.log(choosenWalletBalance)
     setBalance(choosenWalletBalance[0].account_balance);
   };
 
@@ -143,7 +149,8 @@ const Dashboard = () => {
           {userWallets.length < 1 && !isLoading && <NewUser />}
           {userWallets.length > 0 && (
             <div>
-              <div className="mx-auto w-[90%]">
+              <div className="mx-auto mt-4 w-[90%] flex flex-wrap gap-2 items-center ">
+                <p className="text-white ">Select a Wallet :</p>
                 <select
                   name=""
                   id=""
@@ -151,7 +158,7 @@ const Dashboard = () => {
                   value={wallet}
                   onChange={(e) => {
                     setWallet(e.target.value);
-                    getBalance(e.target.value);
+                    getBalance(e.target.value, userWallets);
                     getCategories(e.target.value);
                     // getTransactions(e.target.value);
                   }}
@@ -159,7 +166,7 @@ const Dashboard = () => {
                   <option value="" hidden>
                     Select a Wallet
                   </option>
-                  {userWallets &&
+                  {userWallets.length > 0 &&
                     userWallets.map((w) => (
                       <option key={w.id} value={w.id}>
                         {w.wallet_name}

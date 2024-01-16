@@ -100,7 +100,7 @@ const Dashboard = () => {
           }
         }
         
-        setTransactions(expensesArr);
+        setTransactions(expensesArr.reverse());
         // console.log(transactionsData);
         // console.log(expensesArr)
       }
